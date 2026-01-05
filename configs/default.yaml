@@ -1,0 +1,75 @@
+# Configuration for Customer Segmentation Analysis
+
+# Data settings
+data:
+  n_customers: 5000
+  random_seed: 42
+  train_split: 0.7
+  validation_split: 0.15
+  test_split: 0.15
+
+# Feature engineering
+features:
+  # RFM Analysis parameters
+  rfm:
+    recency_days: 365
+    frequency_window: 90
+    monetary_window: 30
+  
+  # Customer lifetime value
+  clv:
+    discount_rate: 0.1
+    retention_rate: 0.8
+    margin: 0.2
+  
+  # Scaling
+  scaling_method: "standard"  # standard, minmax, robust
+
+# Models
+models:
+  kmeans:
+    n_clusters: 5
+    init: "k-means++"
+    max_iter: 300
+    random_state: 42
+  
+  gmm:
+    n_components: 5
+    covariance_type: "full"
+    random_state: 42
+  
+  hierarchical:
+    n_clusters: 5
+    linkage: "ward"
+  
+  dbscan:
+    eps: 0.5
+    min_samples: 5
+
+# Evaluation
+evaluation:
+  metrics:
+    - "silhouette"
+    - "calinski_harabasz"
+    - "davies_bouldin"
+    - "inertia"
+  
+  # Business metrics
+  business_metrics:
+    - "segment_profitability"
+    - "customer_lifetime_value"
+    - "churn_rate"
+    - "segment_size"
+
+# Visualization
+visualization:
+  plot_size: [12, 8]
+  color_palette: "viridis"
+  save_plots: true
+  output_dir: "assets/plots"
+
+# Output
+output:
+  results_dir: "assets/results"
+  models_dir: "assets/models"
+  logs_dir: "assets/logs"
